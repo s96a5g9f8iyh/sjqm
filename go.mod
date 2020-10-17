@@ -1,4 +1,4 @@
-module github.com/sjqm
+module github.com/Aquarian-Age/sjqm
 
 go 1.14
 
