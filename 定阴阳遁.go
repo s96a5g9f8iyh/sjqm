@@ -4,21 +4,20 @@ import (
 	"time"
 )
 
-//根据当前阳历时间判断阴阳遁
-//时间戳精确到时
-//now:当前阳历时间戳　要匹配冬至和夏至时间戳　精确到小时
-//dzt:冬至时间戳　xzt:夏至时间戳
-func YY阴阳判断(now, dzt, xzt time.Time) (yy string) {
+// 判断阴阳遁 0:阴遁 1:阳遁
+// 夏(含)至以后用阴遁 冬至(含)以后用阳遁
+func YY阴阳判断(st, dzt, xzt time.Time) (yy int) {
+	//st:当前输入时间戳 dzt:冬至时间戳　xzt:夏至时间戳
+	//时间精确到小时
+	st = time.Date(st.Year(), st.Month(), st.Day(), st.Hour(), 0, 0, 0, time.Local)
+	dzt = time.Date(dzt.Year(), dzt.Month(), dzt.Day(), dzt.Hour(), 0, 0, 0, time.Local)
+	xzt = time.Date(xzt.Year(), xzt.Month(), xzt.Day(), xzt.Hour(), 0, 0, 0, time.Local)
 
-	//dzb := now.After(dzt) //当前时间在冬至之后
-	xzb := now.After(xzt)
-	eq := now.Equal(xzt)
-
-	if xzb == true || eq == true {
-		yy = "阴"
-	} else {
-		yy = "阳"
+	if st.After(xzt) || st.Equal(xzt) {
+		yy = 0 //阴
 	}
-
+	if st.After(dzt) || st.Equal(dzt) {
+		yy = 1 //阳
+	}
 	return
 }

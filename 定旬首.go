@@ -2,16 +2,41 @@ package sjqm
 
 import (
 	"strings"
-
-	"github.com/nongli/ganzhi"
 )
 
+//时辰对应的旬首
+//当前时辰往前推到甲
+func XunShou(hgz string) (xs string) {
+	var i int
+	for i = 0; i < len(jz60); i++ {
+		if strings.EqualFold(hgz, jz60[i]) {
+			for j := i; j >= i-10; j-- {
+				if strings.ContainsAny(jz60[j], "甲") {
+					xs = jz60[j] //旬首
+					break
+				}
+			}
+			break
+		}
+	}
+
+	/*	for j := i; j >= i-10; j-- {
+		if strings.ContainsAny(jz60[j], "甲") {
+			//fmt.Printf("旬首:%s\n", jz60[j])
+			xs = jz60[j] //旬首
+			break
+		}
+	}*/
+	return
+}
+
+/////////////////////////////下面弃用
 /*
 地支—天干=旬首常数（甲子0；甲寅2；甲辰4；甲午6；甲申8；甲戌10）
 例如求辛巳的旬首，用地支（巳）的序号6减去天干（辛）的序号8（地支小于天干时加12），得10。
 所以得旬首甲戌
 */
-//时干支对应的旬首
+/*//时干支对应的旬首
 func XS旬首(gz string) (xs string) {
 	//旬首的数字和对应的值不能变
 	var 旬首 = map[int]string{0: "甲子", 2: "甲寅", 4: "甲辰", 6: "甲午", 8: "甲申", 10: "甲戌"}
@@ -53,3 +78,4 @@ func cal(j, i int) (res int) {
 	}
 	return
 }
+*/
