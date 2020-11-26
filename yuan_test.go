@@ -10,6 +10,16 @@ var (
 		"冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种",
 		"夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
 		"冬至", "小寒", "大寒", "立春"}
+	jzArr = []string{
+		"甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己巳", "庚午", "辛未", "壬申", "癸酉", //0-9  甲子干支时辰
+		"甲戌", "乙亥", "丙子", "丁丑", "戊寅", "己卯", "庚辰", "辛巳", "壬午", "癸未", //10-19 甲戌干支时辰
+		"甲申", "乙酉", "丙戌", "丁亥", "戊子", "己丑", "庚寅", "辛卯", "壬辰", "癸巳", //20-29 甲申干支时辰
+		"甲午", "乙未", "丙申", "丁酉", "戊戌", "己亥", "庚子", "辛丑", "壬寅", "癸卯", //30-39 甲午干支时辰
+		"甲辰", "乙巳", "丙午", "丁未", "戊申", "己酉", "庚戌", "辛亥", "壬子", "癸丑", //40-49 甲辰干支时辰
+		"甲寅", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥", //50-59 甲寅干支时辰
+	}
+
+	xsArr = []string{"甲子", "甲戌", "甲申", "甲午", "甲辰", "甲寅"} //旬首数组
 )
 
 //定元 测试
@@ -63,7 +73,7 @@ func Test定元(t *testing.T) {
 	}
 }
 
-//定局测试
+//定局 测试
 func Test定局(t *testing.T) {
 	/*
 		expy1, expy2, expy3 := 0, 1, 2 //定元数字
@@ -155,6 +165,60 @@ func Test定局(t *testing.T) {
 				}
 			}
 			break
+		}
+	}
+}
+
+//旬首 测试
+func Test旬首(t *testing.T) {
+
+	for i := 0; i < len(jzArr); i++ {
+		if i < 10 {
+			expHgzArr := jzArr[:10]
+			actual := xsArr[0]
+			if xs := XunShou(expHgzArr[i]); !strings.EqualFold(xs, actual) {
+				t.Errorf("XunShou(%s)=%s 预期值:%s\n", expHgzArr[i], xs, actual)
+			}
+		}
+
+		if i >= 10 && i < 20 {
+			expHgzArr := jzArr[10:20]
+			actual := xsArr[1]
+			if xs := XunShou(expHgzArr[i-10]); !strings.EqualFold(xs, actual) {
+				t.Errorf("XunShou(%s)=%s 预期值:%s\n", expHgzArr[i-10], xs, actual)
+			}
+		}
+
+		if i >= 20 && i < 30 {
+			expHgzArr := jzArr[20:30]
+			actual := xsArr[2]
+			if xs := XunShou(expHgzArr[i-20]); !strings.EqualFold(xs, actual) {
+				t.Errorf("XunShou(%s)=%s 预期值:%s\n", expHgzArr[i-20], xs, actual)
+			}
+		}
+
+		if i >= 30 && i < 40 {
+			expHgzArr := jzArr[30:40]
+			actual := xsArr[3]
+			if xs := XunShou(expHgzArr[i-30]); !strings.EqualFold(xs, actual) {
+				t.Errorf("XunShou(%s)=%s 预期值:%s\n", expHgzArr[i-30], xs, actual)
+			}
+		}
+
+		if i >= 40 && i < 50 {
+			expHgzArr := jzArr[40:50]
+			actual := xsArr[4]
+			if xs := XunShou(expHgzArr[i-40]); !strings.EqualFold(xs, actual) {
+				t.Errorf("XunShou(%s)=%s 预期值:%s\n", expHgzArr[i-40], xs, actual)
+			}
+		}
+
+		if i >= 50 && i < 60 {
+			expHgzArr := jzArr[50:60]
+			actual := xsArr[5]
+			if xs := XunShou(expHgzArr[i-50]); !strings.EqualFold(xs, actual) {
+				t.Errorf("XunShou(%s)=%s 预期值:%s\n", expHgzArr[i-50], xs, actual)
+			}
 		}
 	}
 }
