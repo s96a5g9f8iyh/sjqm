@@ -1,8 +1,12 @@
 package sjqm
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
-func TestT定元(t *testing.T) {
+//定元 测试
+func Test定元(t *testing.T) {
 	//上元 二十天
 	s上元 := []string{"甲子", "乙丑", "丙寅", "丁卯", "戊辰", "己卯", "庚辰", "辛巳", "壬午", "癸未", "甲午", "乙未", "丙申", "丁酉", "戊戌", "己酉", "庚戌", "辛亥", "壬子", "癸丑"}
 	//中元 二十天
@@ -15,27 +19,39 @@ func TestT定元(t *testing.T) {
 	expected2 := "中元"
 	expected3 := "下元"
 
+	n1, n2, n3 := 0, 1, 2
+
 	//上元预期值测试
 	for i := 0; i < len(s上元); i++ {
-		actual, _ := YuanN(s上元[i])
-		if actual != expected1 {
+		actual, nx1 := YuanN(s上元[i])
+		if !strings.EqualFold(actual, expected1) {
 			t.Errorf("YuanN(%s)=%s 预期结果:%s", s上元[i], actual, expected1)
+		}
+		if nx1 != n1 {
+			t.Errorf("YuanN(%s)=%d 预期结果:%d\n", s上元[i], nx1, n1)
 		}
 	}
 
 	//中元预期值测试
 	for j := 0; j < len(s中元); j++ {
-		actual, _ := YuanN(s中元[j])
-		if actual != expected2 {
+		actual, nx2 := YuanN(s中元[j])
+		if !strings.EqualFold(actual, expected2) {
 			t.Errorf("YuanN(%s)=%s 预期结果:%s", s中元[j], actual, expected2)
+		}
+		if nx2 != n2 {
+			t.Errorf("YuanN(%s)=%d 预期结果:%d\n", s中元[j], nx2, n2)
 		}
 	}
 
 	//下元预期值测试
 	for k := 0; k < len(s下元); k++ {
-		actual, _ := YuanN(s下元[k])
-		if actual != expected3 {
+		actual, nx3 := YuanN(s下元[k])
+		if !strings.EqualFold(actual, expected3) {
 			t.Errorf("YuanN(%s)=%s 预期结果:%s\n", s下元[k], actual, expected3)
+		}
+
+		if nx3 != n3 {
+			t.Errorf("YuanN(%s)=%d 预期结果:%d\n", s上元[k], nx3, n3)
 		}
 	}
 }
