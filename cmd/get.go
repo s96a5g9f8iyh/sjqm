@@ -18,7 +18,7 @@ type Input struct {
 
 func GetInPut() *Input {
 	flag.Usage = func() {
-		fmt.Printf("Usage qxqm -i 2020050602f\n")
+		fmt.Printf("Usage sjqm -i 2020050602f\n")
 		flag.PrintDefaults()
 	}
 	s := flag.String("i", " ", " ")
@@ -53,7 +53,6 @@ func GetInPut() *Input {
 	if err != nil {
 		log.Fatal("閏月解析:", err)
 	}
-	//fmt.Printf("input: y:%v m:%v d:%v h:%v b:%t\n", y, m, d, h, b)
 	return &Input{
 		Y: y,
 		D: d,

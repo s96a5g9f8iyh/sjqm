@@ -1,10 +1,7 @@
-module github.com/Aquarian-Age/sjqm
+module liangzi.local/sjqm
 
-go 1.14
+go 1.15
 
-require github.com/nongli v0.0.0
+require liangzi.local/nongli v0.0.0
 
-replace (
-	github.com/nongli => /home/xuan/src/ccal-cli
-	github.com/sjqm => /home/xuan/src/sjqm/sjqm时家奇门
-)
+replace liangzi.local/nongli => /home/xuan/src/ccal-cli/
