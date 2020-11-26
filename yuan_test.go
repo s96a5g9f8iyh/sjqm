@@ -1,6 +1,7 @@
 package sjqm
 
 import (
+	"reflect"
 	"strings"
 	"testing"
 )
@@ -166,6 +167,36 @@ func Test定局(t *testing.T) {
 			}
 			break
 		}
+	}
+}
+
+//三奇六仪 测试
+func Test三奇六仪(t *testing.T) {
+	///////阴遁 阴遁逆布六仪顺布三奇
+	yyN := 0
+	//jN := 1//戊 乙 丙 丁 癸 壬 辛 庚 己    (1,2,3--->9)
+	//jN := 2//己 戊 乙 丙 丁 癸 壬 辛 庚
+	//jN := 3//庚 己 戊 乙 丙 丁 癸 壬 辛
+	//jN := 4//辛 庚 己 戊 乙 丙 丁 癸 壬
+	//jN := 5//壬 辛 庚 己 戊 乙 丙 丁 癸
+	//jN := 6//癸 壬 辛 庚 己 戊 乙 丙 丁
+	//jN := 7//丁 癸 壬 辛 庚 己 戊 乙 丙
+	//jN := 8//丙 丁 癸 壬 辛 庚 己 戊 乙
+	//jN := 9//乙 丙 丁 癸 壬 辛 庚 己 戊
+	jN := 4
+	s4 := map[int]string{1: "辛", 2: "庚", 3: "己", 4: "戊", 5: "乙", 6: "丙", 7: "丁", 8: "癸", 9: "壬"}
+	qy := FindSqly(yyN, jN)
+	if !reflect.DeepEqual(qy, s4) {
+		t.Errorf("FindSqly(%d %d)=%v 预期结果:%v\n", yyN, jN, qy, s4)
+	}
+	///////阳遁 顺布六仪逆布三奇
+	yangN := 1
+	yjN := 1
+	s1 := map[int]string{1: "戊", 2: "己", 3: "庚", 4: "辛", 5: "壬", 6: "癸", 7: "丁", 8: "丙", 9: "乙"}
+
+	yqy := FindSqly(yangN, yjN)
+	if !reflect.DeepEqual(yqy, s1) {
+		t.Errorf("FindSqly(%d %d)=%v 预期结果:%v\n", yangN, yjN, yqy, s1)
 	}
 }
 
