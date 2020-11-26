@@ -5,6 +5,13 @@ import (
 	"testing"
 )
 
+var (
+	jqNameArr = []string{
+		"冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种",
+		"夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+		"冬至", "小寒", "大寒", "立春"}
+)
+
 //定元 测试
 func Test定元(t *testing.T) {
 	//上元 二十天
@@ -52,6 +59,102 @@ func Test定元(t *testing.T) {
 
 		if nx3 != n3 {
 			t.Errorf("YuanN(%s)=%d 预期结果:%d\n", s上元[k], nx3, n3)
+		}
+	}
+}
+
+//定局测试
+func Test定局(t *testing.T) {
+	/*
+		expy1, expy2, expy3 := 0, 1, 2 //定元数字
+		index0 := 0                    //
+
+		name0 := "冬至"
+		dz1, dz2, dz3 := 1, 7, 4
+
+		if strings.EqualFold(name0, jqNameArr[index0]) || strings.EqualFold(name0, jqNameArr[24]) {
+
+			n1 := FindJU(expy1, index0, jqNameArr)
+			if n1 != dz1 {
+				t.Errorf("FindJu(%d %d %s)=%d 预期值:%d\n", expy1, index0, jqNameArr, n1, dz1)
+			}
+
+			n2 := FindJU(expy2, index0, jqNameArr)
+			if n2 != dz2 {
+				t.Errorf("FindJu(%d %d %s)=%d 预期值:%d\n", expy2, index0, jqNameArr, n2, dz2)
+			}
+
+			n3 := FindJU(expy3, index0, jqNameArr)
+			if n3 != dz3 {
+				t.Errorf("FindJu(%d %d %s)=%d 预期值:%d\n", expy3, index0, jqNameArr, n3, dz3)
+			}
+		}
+	*/
+	//////////////////
+	expy := []int{0, 1, 2} //三元数组
+	//index := []int{0, 1, 2} ==>i           //节气索引数组
+	name := []string{
+		"冬至", "小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种",
+		"夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪",
+		"冬至", "小寒", "大寒", "立春"} //节气名称
+
+	//局数字
+	type jqn struct {
+		n1, n2, n3 int //n1:上元 n2:中元 n3:下元
+	}
+	//节气三元定局数字
+	exptYuan := []jqn{
+		{1, 7, 4}, //冬至
+		{2, 8, 5}, //小寒
+		{3, 9, 6}, //大寒
+		{8, 5, 2}, //立春
+		{9, 6, 3}, //雨水
+		{1, 7, 4}, //惊蛰
+		{3, 9, 6}, //春分
+		{4, 1, 7}, //清明
+		{5, 2, 8}, //谷雨
+		{4, 1, 7}, //立夏
+		{5, 2, 8}, //小满
+		{6, 3, 9}, //芒种
+
+		{9, 3, 6}, //夏至
+		{8, 2, 5}, //小暑
+		{7, 1, 4}, //大暑
+		{2, 5, 8}, //立秋
+		{1, 4, 7}, //处暑
+		{9, 3, 6}, //白露
+		{7, 1, 4}, //秋分
+		{6, 9, 3}, //寒露
+		{5, 8, 2}, //霜降
+		{6, 9, 3}, //立冬
+		{5, 8, 2}, //小雪
+		{4, 7, 1}, //大雪
+	}
+
+	for i := 0; i < len(exptYuan); i++ {
+		if !strings.EqualFold(name[i], jqNameArr[i]) {
+			t.Errorf("FindJU(_,%d,_) 节气:%s 预期节气:%s\n", i, name[i], jqNameArr[i])
+		} else if strings.EqualFold(name[i], jqNameArr[i]) {
+			for j := 0; j < len(expy); j++ {
+				switch j {
+				case 0:
+					jx := FindJU(expy[j], i, jqNameArr)
+					if jx != exptYuan[i].n1 {
+						t.Errorf("FindJu(%d %d %s)=%d 预期值:%d\n", expy[j], i, jqNameArr, jx, exptYuan[i].n1)
+					}
+				case 1:
+					jx := FindJU(expy[j], i, jqNameArr)
+					if jx != exptYuan[i].n2 {
+						t.Errorf("FindJu(%d %d %s)=%d 预期值:%d\n", expy[j], i, jqNameArr, jx, exptYuan[i].n2)
+					}
+				case 2:
+					jx := FindJU(expy[j], i, jqNameArr)
+					if jx != exptYuan[i].n3 {
+						t.Errorf("FindJu(%d %d %s)=%d 预期值:%d\n", expy[j], i, jqNameArr, jx, exptYuan[i].n3)
+					}
+				}
+			}
+			break
 		}
 	}
 }
