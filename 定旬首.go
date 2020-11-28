@@ -5,14 +5,15 @@ import (
 )
 
 //时辰对应的旬首
-//当前时辰往前推到甲
-func XunShou(hgz string) (xs string) {
+func XunShou(hgz string) (xunShouGZ string, indexXS int) {
+	//当前时辰往前推到甲
 	var i int
 	for i = 0; i < len(jz60); i++ {
 		if strings.EqualFold(hgz, jz60[i]) {
 			for j := i; j >= i-10; j-- {
 				if strings.ContainsAny(jz60[j], "甲") {
-					xs = jz60[j] //旬首
+					xunShouGZ = jz60[j] ///时辰旬首
+					indexXS = j
 					break
 				}
 			}
@@ -28,6 +29,17 @@ func XunShou(hgz string) (xs string) {
 		}
 	}*/
 	return
+}
+
+//旬首的干支数组
+func 旬首干支数组(indexXS int) []string {
+	var xsGZArr []string
+	for i := indexXS; i < indexXS+10; i++ {
+		gz := jz60[i]
+		xsGZArr = append(xsGZArr, gz)
+	}
+	//fmt.Printf("旬首干支数组:%s\n", xsGZArr)
+	return xsGZArr
 }
 
 /////////////////////////////下面弃用

@@ -16,8 +16,9 @@ func Result(y int, dgz, hgz string, st time.Time) *G {
 	st = time.Date(st.Year(), st.Month(), st.Day(), st.Hour(), 0, 0, 0, time.Local)
 	//定节气
 	index, jmc := FindJQ(st, jqarr, jqnames)
+	//fmt.Println(jmc)
 	//定阴阳遁
-	yinyangN := YY阴阳判断(st, dzt, xzt)
+	yinyangN := YinYang(st, dzt, xzt)
 	var yy string
 	if yinyangN == 0 {
 		yy = "阴遁"
@@ -25,30 +26,47 @@ func Result(y int, dgz, hgz string, st time.Time) *G {
 	if yinyangN == 1 {
 		yy = "阳遁"
 	}
+	//fmt.Println(yy)
 	//定元
 	yuanx, yn := YuanN(dgz)
+	//fmt.Println(yuanx)
 	//定局
 	juN := FindJU(yn, index, jqnames)
+	//fmt.Println(juN)
 	sqly := FindSqly(yinyangN, juN)
 	//fmt.Printf("地盘三奇六仪:%v\n", sqly)
 	//旬首
-	xunshou := XunShou(hgz)
+	xunshou, indexXS := XunShou(hgz)
 	//fmt.Printf("旬首:%s\n", xunshou)
-	//找值符九星
-	jgmap := JGMap()
-	zhifu, zhishi := FindZiFu(xunshou, sqly, jgmap)
-	//fmt.Printf("值符:%s 值使:%s\n", zhifu, zhishi)
-	zhifN, starmap, dunmap := ZhiFu(zhifu, hgz, sqly)
-	//fmt.Printf("九宫配九星:%v\n九宫配旬遁:%v\n", starmap, dunmap)
+	xsGZArr := 旬首干支数组(indexXS)
+
+	//时辰旬首对应的九宫位置数字
+	xunShouNumber, _, dun := XunShouHour(xunshou, hgz, xsGZArr, sqly)
+	//fmt.Printf("%s时 值符在%d宫位置 遁:%s\n", gzName, xunShouNumber, dun)
+	//xsN := FindXSN(xunshou, sqly)
+	//fmt.Printf("时辰旬首落%d宫\n", xsN)
+
+	//值符
+	zf, starmap, dunmap := ZhiFuStar(xunShouNumber, dun, sqly)
+	//fmt.Printf("值符:%s\n九星:%v\n原宫位奇仪:%v\n", zf, starmap, starDun)
+	//fmt.Printf("值符:%s\n九星:%v\n", zf, starmap)
+
 	//暗干支
-	agzmap := AnGZ(zhifu, xunshou, yinyangN)
-	//fmt.Printf("九宫配暗干支:%v\n", agzmap)
+	zfn := FindZFNumber(zf)       //值符原始宫位
+	gzarr := FindXSGZArr(xunshou) //旬首干支数组
+	agzmap := AnGZ(zfn, gzarr, yinyangN)
+	//agzmap := AnGZ(zf, xunshou, yinyangN)
+	//fmt.Printf("暗干支:%v\n", agzmap)
+
 	//值使八门
-	zhishimap := ZhiShi(hgz, agzmap, zhishi)
-	//fmt.Printf("九宫配值使八门:%v\n", zhishimap)
+	zhis := FindZS(zfn)
+	//fmt.Printf("值使:%s\n", zhis)
+	zhishimap := ZhiShi(hgz, agzmap, zhis)
+	//fmt.Printf("值使八门:%v\n", zhishimap)
+
 	//八神
-	bsmap := BaShen(zhifN, yinyangN)
-	//fmt.Printf("九宫配八神:%v\n", bsmap)
+	bsmap := BaShen(xunShouNumber, yinyangN)
+	//fmt.Printf("八神:%v\n", bsmap)
 
 	////////////////////////////////////////////////结果
 	//值符(九星) 值使(八门) 暗干支 六甲旬遁 八神 六仪三奇
@@ -70,8 +88,8 @@ func Result(y int, dgz, hgz string, st time.Time) *G {
 		N:       juN,
 		YUAN:    yuanx,
 		XS:      xunshou,
-		ZHIFU:   zhifu,
-		ZHISHI:  zhishi,
+		ZHIFU:   zf,
+		ZHISHI:  zhis,
 		G1:      arr1,
 		G2:      arr2,
 		G3:      arr3,

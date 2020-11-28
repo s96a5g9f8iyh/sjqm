@@ -264,48 +264,39 @@ func Test旬首(t *testing.T) {
 }
 
 //寻找值符值使 测试
-func Test寻找值符值使(t *testing.T) {
+func Test值符随时干(t *testing.T) {
 	//六甲旬遁: 甲子遁戊　甲戌遁己　甲申遁庚　甲午遁辛　甲辰遁壬　甲寅遁
-	jgmap := JGMap()
-	//阳遁一局
-	sqlyYang1 := map[int]string{1: "戊", 2: "己", 3: "庚", 4: "辛", 5: "壬", 6: "癸", 7: "丁", 8: "丙", 9: "乙"}
-	zhif1 := "天蓬"
-	zhis1 := "休门"
-	juN := 1
-	//阳一局 甲子遁戊
-	zhif, zhis := FindZiFu(sqlyYang1, jgmap, juN)
-	if !strings.EqualFold(zhif, zhif1) || !strings.EqualFold(zhis, zhis1) {
-		t.Errorf("FindZiFu(%v ,jgmap,%v,)=%s,%s 期望结果:%s-%s", sqlyYang1, juN, zhif, zhis, zhif1, zhis1)
+	xsGZArr1 := jzArr[:10]
+	//xsGZArr2 := jzArr[10:20]
+	//xsGZArr3 := jzArr[20:30]
+	xsGZArr4 := jzArr[30:40]
+	//xsGZArr5 := jzArr[40:50]
+	//xsGZArr6 := jzArr[50:]
+
+	旬首1 := "甲子"
+	//旬首2 := "甲戌"
+	//旬首3 := "甲申"
+	旬首4 := "甲午"
+	//旬首5 := "甲辰"
+	//旬首6 := "甲寅"
+	hgz := "甲午"
+	hgz1 := "甲子"
+
+	////
+	name := hgz
+	name1 := hgz1
+	zfN := 2
+	zfN1 := 8
+	sqlyY8 := map[int]string{1: "庚", 2: "辛", 3: "壬", 4: "癸", 5: "丁", 6: "丙", 7: "乙", 8: "戊", 9: "己"} //阳遁8局
+	zfNumber, zfName, _ := XunShouHour(旬首4, hgz, xsGZArr4, sqlyY8)                                   //阳遁上元八局 甲午时辰
+
+	if zfNumber != zfN || !strings.EqualFold(zfName, name) {
+		t.Errorf("ZhiFuHour(%v %v %v %v)=%v,%v 期望结果:%v %v\n", 旬首4, hgz, xsGZArr4, sqlyY8, zfNumber, zfName, zfN, name)
 	}
 
-	//阳遁八局
-	sqlyYang8 := map[int]string{1: "庚", 2: "辛", 3: "壬", 4: "癸", 5: "丁", 6: "丙", 7: "乙", 8: "戊", 9: "己"}
-	zhif8 := "天任"
-	zhis8 := "生门"
-	juN = 8
-	//阳八局 甲申遁庚
-	zhifx8, zhisx8 := FindZiFu(sqlyYang8, jgmap, juN)
-	if !strings.EqualFold(zhifx8, zhif8) || !strings.EqualFold(zhisx8, zhis8) {
-		t.Errorf("FindZiFu(%v,jgmap, %v)=%s,%s 期望结果:%s-%s", sqlyYang8, juN, zhifx8, zhisx8, zhif8, zhis8)
+	zfn1, zfname1, _ := XunShouHour(旬首1, hgz1, xsGZArr1, sqlyY8) //阳遁上元八局 甲子时辰
+	if zfn1 != zfN1 || !strings.EqualFold(zfname1, name1) {
+		t.Errorf("ZhiFuHour(%v %v %v %v)=%v-%v 期望结果:%v-%v\n", 旬首1, hgz1, xsGZArr1, sqlyY8, zfn1, zfname1, zfN1, name1)
 	}
 
-	//阳遁三局
-	sqlyYang3 := map[int]string{1: "丙", 2: "乙", 3: "戊", 4: "己", 5: "庚", 6: "辛", 7: "壬", 8: "癸", 9: "丁"}
-	zhif3 := "天冲"
-	zhis3 := "伤门"
-	juN = 3
-	zhifx3, zhisx3 := FindZiFu(sqlyYang3, jgmap, juN)
-	if !strings.EqualFold(zhifx3, zhif3) || !strings.EqualFold(zhisx3, zhis3) {
-		t.Errorf("FindZiFu(%v,jgmap, %v)=%s,%s 期望结果:%s-%s", sqlyYang3, juN, zhifx3, zhisx3, zhif3, zhis3)
-	}
-	/////////////////
-	//阴遁六局
-	sqlyYin6 := map[int]string{1: "癸", 2: "壬", 3: "辛", 4: "庚", 5: "己", 6: "戊", 7: "乙", 8: "丙", 9: "丁"}
-	zhif6 := "天心"
-	zhis6 := "开门"
-	juN = 6
-	zhifx6, zhisx6 := FindZiFu(sqlyYin6, jgmap, juN)
-	if !strings.EqualFold(zhifx6, zhif6) || !strings.EqualFold(zhisx6, zhis6) {
-		t.Errorf("FindZiFu(%v,jgmap,%v)=%s,%s, 期望结果:%s-%s\n", sqlyYin6, juN, zhifx6, zhisx6, zhif6, zhis6)
-	}
 }

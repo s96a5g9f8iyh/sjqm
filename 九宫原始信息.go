@@ -14,6 +14,7 @@ func JGMap() map[int]JG {
 		2: {Name: "坤", Number: 2, ZF: "天芮", ZS: "死门"}, //坤二宫
 		7: {Name: "兑", Number: 7, ZF: "天柱", ZS: "惊门"}, //兑七宫
 		6: {Name: "乾", Number: 6, ZF: "天心", ZS: "开门"}, //乾六宫
+		////////////////
 		5: {Name: "中", Number: 5, ZF: "天禽", ZS: "死门"}, //中宫
 	}
 	return jginfo
