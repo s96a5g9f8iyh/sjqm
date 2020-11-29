@@ -23,8 +23,10 @@ func ZhiShi(hgz string, anGZ map[int]string, zhis string) (zhiShimap map[int]str
 
 	var zsmap = make(map[int]string)
 	for n, name := range anGZ {
-		if strings.EqualFold(hgz, name) {
+		//fmt.Println(name)
+		if strings.ContainsAny(hgz, name) {
 			//fmt.Printf("-->%s时辰 暗干支落%d宫位\n", hgz, n)
+			//break
 			//宫位排序
 			for i := 0; i < len(x); i++ {
 				if n == x[i] && n == 5 {
@@ -41,6 +43,7 @@ func ZhiShi(hgz string, anGZ map[int]string, zhis string) (zhiShimap map[int]str
 							xx2 := x[j:]
 							x = append(xx2, xx1...)
 							//fmt.Printf("--九宫再排序:%d\n", x)
+							break
 						}
 					}
 					break
@@ -57,9 +60,11 @@ func ZhiShi(hgz string, anGZ map[int]string, zhis string) (zhiShimap map[int]str
 					break
 				}
 			}
+			break
 		}
 	}
 	//fmt.Printf("--九宫排序:%d\n", x)
+
 	//八门排序
 	for j := 0; j < len(bm); j++ {
 		if strings.ContainsAny(bm[j], zhis) {

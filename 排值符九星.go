@@ -172,7 +172,7 @@ func ZhiFuStar(xunShouNumber int, dun string, sqly map[int]string) (string, map[
 			}
 		}
 	}
-	//fmt.Printf("-->九星配九宫:%v\n", starmap)
+	//fmt.Printf("-->值使九星配九宫:%v\n", starmap)
 
 	///地盘原始宫位的三奇六仪
 	starDun := 地盘三奇六仪配九星(starArr, sqly)
